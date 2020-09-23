@@ -1011,11 +1011,11 @@ void G_ReadMetalTic(mobj_t *metal)
 	{
 		if (ziptic & GZT_MOMXY)
 		{
-			oldmetal.momx = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
-			oldmetal.momy = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+			oldmetal.momx = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+			oldmetal.momy = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
 		}
 		if (ziptic & GZT_MOMZ)
-			oldmetal.momz = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+			oldmetal.momz = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
 		oldmetal.x += oldmetal.momx;
 		oldmetal.y += oldmetal.momy;
 		oldmetal.z += oldmetal.momz;
@@ -1150,11 +1150,11 @@ void G_ReadMetalTic(mobj_t *metal)
 					P_SetScale(follow, follow->destscale);
 
 				P_UnsetThingPosition(follow);
-				temp = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+				temp = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
 				follow->x = metal->x + temp;
-				temp = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+				temp = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
 				follow->y = metal->y + temp;
-				temp = (demoversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
+				temp = (metalversion < 0x000e) ? READINT16(metal_p)<<8 : READFIXED(metal_p);
 				follow->z = metal->z + temp;
 				P_SetThingPosition(follow);
 				if (followtic & FZT_SKIN)
@@ -1214,7 +1214,7 @@ void G_WriteMetalTic(mobj_t *metal)
 	else
 	{
 		// For moving normally:
-		// Store one full byte of movement, plus one byte of fractional movement.
+		// Store movement as a fixed value
 		fixed_t momx = metal->x-oldmetal.x;
 		fixed_t momy = metal->y-oldmetal.y;
 		if (momx != oldmetal.momx
